@@ -66,9 +66,9 @@ html, body, [class*="css"] {
     border-radius: 50%;
     background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
 }
-.hero h1 { font-size: 2rem; font-weight: 700; margin: 0 0 0.3rem; letter-spacing: -0.5px; }
-.hero .subtitle { color: var(--muted); font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
-.hero .api-hint { font-size: 0.78rem; color: rgba(255,255,255,0.55); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.8rem; }
+.hero h1 { font-size: 2rem; font-weight: 700; margin: 0 0 0.3rem; letter-spacing: -0.5px; color: white !important; }
+.hero .subtitle { color: rgba(255,255,255,0.6) !important; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
+.hero .api-hint { font-size: 0.78rem; color: rgba(255,255,255,0.55) !important; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.8rem; }
 .hero .badge {
     display: inline-block; background: var(--accent); color: white;
     font-size: 0.7rem; padding: 2px 8px; border-radius: 2px;
