@@ -1511,8 +1511,8 @@ def markdown_to_docx_bytes(markdown_text: str, title: str) -> bytes:
                     row.cells[i].text = cell
         elif line.startswith(">"):
             p = doc.add_paragraph(line[1:].strip())
-            p.runs[0].font.italic = True
-            p.runs[0].font.color.rgb = RGBColor(0x88, 0x92, 0xa4)
+            if p.runs:\n                p.runs[0].font.italic = True
+                p.runs[0].font.color.rgb = RGBColor(0x88, 0x92, 0xa4)
         elif line.strip() == "" or line.strip() == "---":
             if hasattr(doc, "_current_table"):
                 doc._current_table = None
