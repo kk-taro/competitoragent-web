@@ -1,3 +1,15 @@
+---
+title: 竞品分析 Agent
+emoji: 🔍
+colorFrom: red
+colorTo: blue
+sdk: streamlit
+sdk_version: "1.35.0"
+python_version: "3.10"
+app_file: app.py
+pinned: false
+---
+
 # 🔍 竞品分析 Agent
 
 基于 LangGraph ReAct Agent 的智能竞品分析工具，支持实时联网搜索，自动生成 11 章专业竞品调研报告。
