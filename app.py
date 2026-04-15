@@ -233,11 +233,11 @@ DEMO_REPORT_AI_CHAT = """# 竞品调研报告：国内AI对话助手
 
 本报告选取的三款竞品分别代表了三种不同的发展路径：
 
-```
-豆包    ──── 流量驱动型 ──── 字节生态为核心竞争力，追求用户规模最大化
-Kimi    ──── 技术驱动型 ──── 长文本与深度推理为核心壁垒，追求用户质量
-DeepSeek ─── 开源驱动型 ──── 开源生态为核心护城河，追求技术标准话语权
-```
+> **豆包** — 流量驱动型 — 字节生态为核心竞争力，追求用户规模最大化
+> 
+> **Kimi** — 技术驱动型 — 长文本与深度推理为核心壁垒，追求用户质量
+> 
+> **DeepSeek** — 开源驱动型 — 开源生态为核心护城河，追求技术标准话语权
 
 **选择逻辑：**
 
@@ -635,29 +635,29 @@ DeepSeek C端完全免费的策略使其获得巨大用户基础（2500万DAU）
 ### 主要数据来源
 
 **字节跳动官方披露**
-- 字节跳动2026年Q1业务更新（豆包DAU 4500万、注册用户2.2亿）
-- 火山引擎官网定价页（API定价信息）
-- 豆包官网（产品功能与定价）
+- [字节跳动2026年Q1业务更新](https://www.bytedance.com)（豆包DAU 4500万、注册用户2.2亿）
+- [火山引擎官网定价页](https://www.volcengine.com/pricing)（API定价信息）
+- [豆包官网](https://www.doubao.com)（产品功能与定价）
 
 **月之暗面官方披露**
-- 月之暗面2026年3月融资文件（付费用户400万、估值45亿美元）
-- Kimi官网（产品功能与定价）
-- Moonshot技术博客（模型更新信息）
+- [月之暗面2026年3月融资文件](https://www.moonshot.cn)（付费用户400万、估值45亿美元）
+- [Kimi官网](https://kimi.moonshot.cn)（产品功能与定价）
+- [Moonshot技术博客](https://www.moonshot.cn/blog)（模型更新信息）
 
 **DeepSeek官方披露**
-- DeepSeek技术报告（训练成本、模型性能）
-- DeepSeek GitHub仓库（星标数、下载量）
-- DeepSeek官网（API定价与用户数据）
+- [DeepSeek技术报告](https://arxiv.org/abs/2401.02954)（训练成本、模型性能）
+- [DeepSeek GitHub仓库](https://github.com/deepseek-ai)（星标数、下载量）
+- [DeepSeek官网](https://www.deepseek.com)（API定价与用户数据）
 
 **第三方研究报告**
-- 艾瑞咨询《2026中国AI应用市场报告》（市场规模85亿元）
-- QuestMobile《2026年Q1移动互联网报告》（MAU 1.8亿）
-- IDC《全球AI应用市场追踪》（中国市场份额25%）
+- [艾瑞咨询《2026中国AI应用市场报告》](https://www.iresearch.com.cn)（市场规模85亿元）
+- [QuestMobile《2026年Q1移动互联网报告》](https://www.questmobile.com.cn)（MAU 1.8亿）
+- [IDC《全球AI应用市场追踪》](https://www.idc.com)（中国市场份额25%）
 
 **权威媒体报道**
-- 36kr《2026年中国AI对话助手市场盘点》（竞争格局分析）
-- 极客公园《Kimi 2026：从技术差异化到商业化突围》
-- 机器之心《DeepSeek开源生态发展报告2026》
+- [36kr《2026年中国AI对话助手市场盘点》](https://36kr.com)（竞争格局分析）
+- [极客公园《Kimi 2026：从技术差异化到商业化突围》](https://www.geekpark.net)（深度分析）
+- [机器之心《DeepSeek开源生态发展报告2026》](https://www.jiqizhixin.com)（技术分析）
 
 ### 调研方法说明
 
