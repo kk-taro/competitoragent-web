@@ -1,6 +1,6 @@
 # 🔍 竞品分析 Agent
 
-基于 LangGraph ReAct Agent 的智能竞品分析工具，支持实时联网搜索，自动生成 11 章专业竞品调研报告。
+基于 LangGraph ReAct Agent 的智能竞品分析工具，支持实时联网搜索，自动生成 专业竞品调研报告。
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://huggingface.co/spaces/kktaro/competitoragent-web)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -39,7 +39,7 @@
 | **AI 写作工具** | Notion AI vs 飞书 AI vs 语雀 | 2026 Q1 |
 | **项目管理 SaaS** | 飞书 vs 钉钉 vs Jira | 2026 Q1 |
 
-每份报告包含 **11 个章节**，**4000+ 字**，涵盖市场分析、产品拆解、商业模式、SWOT 对比等专业内容。
+每份报告包含，涵盖市场分析、产品拆解、商业模式、SWOT 对比等专业内容。
 
 ### 2. 🔍 自定义竞品分析（需要 API Key）
 
@@ -48,7 +48,7 @@
 1. **实时搜索** - 自动搜索竞品的公开信息
 2. **网页抓取** - 提取官网、新闻、评测的关键数据
 3. **智能分析** - 基于收集的信息进行结构化分析
-4. **生成报告** - 输出 11 章专业竞品调研报告
+4. **生成报告** - 输出专业竞品调研报告
 
 **使用示例：**
 - 竞品：「小米汽车、特斯拉、蔚来」
