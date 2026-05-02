@@ -177,249 +177,6 @@ hr { border-color: var(--border); }
     font-family: 'Noto Serif SC', serif; font-size: 0.9rem;
 }
 .stTabs [aria-selected="true"] { background: var(--ink) !important; color: white !important; border-color: var(--ink) !important; }
-
-/* ── Hero 新样式 ── */
-.hero {
-    background: #0e0e16 !important;
-    padding: 3.5rem 2rem 3rem !important;
-    margin: -1rem -1rem 0 !important;
-    border-bottom: none !important;
-    position: relative;
-    overflow: hidden;
-}
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image:
-        linear-gradient(rgba(233,69,96,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(233,69,96,0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-}
-.hero::after {
-    content: '';
-    position: absolute;
-    top: -20%; right: 5%;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(233,69,96,0.1) 0%, transparent 70%);
-    pointer-events: none;
-}
-.hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-}
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(233,69,96,0.12);
-    border: 1px solid rgba(233,69,96,0.3);
-    color: #ff6b6b !important;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
-}
-.live-dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #e94560;
-    animation: pulse 1.5s ease infinite;
-}
-@keyframes pulse {
-    0%,100% { opacity:1; transform:scale(1); }
-    50% { opacity:0.5; transform:scale(1.4); }
-}
-.hero h1 {
-    font-size: 2.8rem !important;
-    font-weight: 900 !important;
-    color: white !important;
-    letter-spacing: -2px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 1rem !important;
-}
-.hero-sub {
-    color: rgba(255,255,255,0.5) !important;
-    font-size: 1rem !important;
-    line-height: 1.8 !important;
-    margin-bottom: 2rem !important;
-    font-family: 'Noto Serif SC', serif !important;
-}
-.hero-stats {
-    display: flex;
-    gap: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    flex-wrap: wrap;
-}
-.stat { display: flex; flex-direction: column; gap: 3px; }
-.stat-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-}
-.stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-/* ── Section Header ── */
-.section-header {
-    padding: 2rem 0 1.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-}
-.section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-}
-.section-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.5px;
-    margin-bottom: 0.4rem;
-}
-.section-desc {
-    color: var(--muted);
-    font-size: 0.875rem;
-}
-
-/* ── 案例卡片 ── */
-.case-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    border-radius: 8px;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.2s;
-}
-.case-track {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.4rem;
-}
-.case-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 0.3rem;
-}
-.case-companies {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 0.6rem;
-}
-.case-action {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
-}
-
-/* ── 步骤引导 ── */
-.steps-guide {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0 1.5rem;
-    flex-wrap: wrap;
-}
-.step-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.7rem 1rem;
-    flex: 1;
-    min-width: 160px;
-}
-.step-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--accent);
-    background: rgba(233,69,96,0.08);
-    padding: 2px 8px;
-    border-radius: 3px;
-    flex-shrink: 0;
-}
-.step-text {
-    font-size: 0.82rem;
-    color: var(--ink);
-}
-
-/* ── API提示 ── */
-.api-tip {
-    background: rgba(233,69,96,0.06);
-    border: 1px solid rgba(233,69,96,0.2);
-    border-radius: 6px;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.85rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    font-family: 'JetBrains Mono', monospace;
-}
-
-/* ── Tabs样式 ── */
-.stTabs [data-baseweb="tab-list"] {
-    gap: 0;
-    border-bottom: 2px solid var(--border);
-    background: transparent;
-}
-.stTabs [data-baseweb="tab"] {
-    background: transparent !important;
-    border: none !important;
-    border-bottom: 2px solid transparent !important;
-    margin-bottom: -2px;
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
-    font-family: 'Noto Serif SC', serif;
-    color: var(--muted) !important;
-    border-radius: 0 !important;
-}
-.stTabs [aria-selected="true"] {
-    color: var(--ink) !important;
-    border-bottom-color: var(--accent) !important;
-    font-weight: 600 !important;
-}
-
-/* ── 主按钮 ── */
-.stButton > button[kind="primary"] {
-    background: var(--accent) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 6px !important;
-    font-weight: 700 !important;
-    padding: 0.6rem 1.5rem !important;
-    font-family: 'Noto Serif SC', serif !important;
-}
-.stButton > button[kind="secondary"] {
-    background: white !important;
-    color: var(--ink) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 6px !important;
-    font-family: 'Noto Serif SC', serif !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -2084,7 +1841,7 @@ def show_report(content: str, title: str):
 # ── 侧边栏：仅放 API 配置 ────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### ⚙️ API 配置")
-    st.caption("自定义分析需要填写，Demo报告无需Key")
+    st.caption("自定义分析需要填写，Demo报告无需填写")
     st.markdown("---")
 
     default_key = ""
@@ -2099,7 +1856,7 @@ with st.sidebar:
 
     api_key_input = st.text_input("API Key", type="password", value=default_key, placeholder="sk-...")
     base_url_input = st.text_input("Base URL", value=default_url, placeholder="https://api.openai.com/v1")
-    model_input = st.text_input("模型名称", value=default_model, placeholder="gpt-4o")
+    model_input = st.text_input("模型名称", value=default_model, placeholder="例：gpt-4o、deepseek-chat")
 
     st.markdown("---")
     st.markdown("""
@@ -2110,7 +1867,10 @@ with st.sidebar:
     网页内容抓取<br>
     OpenAI 兼容接口<br><br>
     <b style='color:#e94560'>报告结构</b><br>
-    11章 · 4000字+ · 附来源
+    11章 · 4000字+ · 附来源<br><br>
+    <b style='color:#e94560'>Demo报告</b><br>
+    预置3份，无需API Key<br>
+    直接点击查看
     </div>
     """, unsafe_allow_html=True)
 
@@ -2118,124 +1878,84 @@ with st.sidebar:
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <div class="hero-inner">
-        <div class="hero-badge">
-            <span class="live-dot"></span> LIVE AGENT · 实时联网搜索
-        </div>
-        <h1>竞品分析 Agent</h1>
-        <p class="hero-sub">输入任意竞品名称，Agent 自动联网搜索、抓取官网、深度推理<br>生成包含 11 个章节、4000字+ 的专业竞争情报报告</p>
-        <div class="hero-stats">
-            <div class="stat"><span class="stat-num">11</span><span class="stat-label">章节结构</span></div>
-            <div class="stat"><span class="stat-num">4000+</span><span class="stat-label">字深度分析</span></div>
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">PM技能框架</span></div>
-            <div class="stat"><span class="stat-num">实时</span><span class="stat-label">联网搜索</span></div>
-        </div>
-    </div>
+    <h1>竞品分析 Agent <span class="badge">LIVE AGENT</span></h1>
+    <div class="subtitle">真实联网搜索 · 网页抓取 · LangGraph ReAct · 11章专业报告</div>
 </div>
 """, unsafe_allow_html=True)
 
-# ── 导航标签 ──────────────────────────────────────────────────────────────────
-tab_demo, tab_custom = st.tabs(["📄 案例报告", "🚀 自定义分析"])
+# 强制滚到顶部
+import streamlit.components.v1 as components
+components.html("<script>window.parent.document.querySelector('.main').scrollTo(0, 0);</script>", height=0)
+
+# ── 主区域：标签页布局 ────────────────────────────────────────────────────────
+tab_demo, tab_custom = st.tabs(["📄 Demo 报告（即点即看）", "🚀 自定义分析（输入你的竞品）"])
 
 # ══ Tab 1：Demo 报告 ══════════════════════════════════════════════════════════
 with tab_demo:
-    st.markdown("""
-    <div class="section-header">
-        <div class="section-label">CASE STUDIES</div>
-        <div class="section-title">三份真实竞品分析报告</div>
-        <div class="section-desc">基于 2026年Q1 最新公开数据，点击卡片查看完整报告</div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### 预置竞品分析报告")
+    st.caption("以下报告已预先生成，无需 API Key，点击卡片直接查看完整内容 👇")
 
+    # 三个卡片按钮
     col1, col2, col3 = st.columns(3)
     selected = st.session_state.get("demo_selected", "ai_chat")
 
     for col, (key, report) in zip([col1, col2, col3], DEMO_REPORTS.items()):
         with col:
             is_active = selected == key
-            active_border = "#c9a84c" if is_active else "#e94560"
-            active_bg = "#fffbf0" if is_active else "white"
-            active_tag = "✓ 当前查看" if is_active else "点击查看 →"
-            tag_color = "#c9a84c" if is_active else "#e94560"
+            status = "✓ 当前查看" if is_active else ""
+            active_style = "background:#fffbf0 !important; border-left-color:#c9a84c !important;" if is_active else ""
             st.markdown(f"""
-            <div class="case-card" style="border-left-color:{active_border}; background:{active_bg}">
-                <div class="case-track">{report['track']}</div>
-                <div class="case-title">{report['title']}</div>
-                <div class="case-companies">{report['companies'].replace(',', ' · ')}</div>
-                <div class="case-action" style="color:{tag_color}">{active_tag}</div>
+            <style>
+            div[data-testid="stButton"] button[kind="secondary"]#btn_{key} {{
+                {active_style}
+            }}
+            </style>
+            <div class="demo-card {'active' if is_active else ''}">
+                <div class="track">{report['track']}</div>
+                <div class="title">{report['title']}</div>
+                <div class="status">{status}</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button(
-                "当前报告" if is_active else "查看报告",
-                key=f"demo_btn_{key}",
-                use_container_width=True,
-                type="secondary" if not is_active else "primary"
-            ):
+            if st.button("点击查看" if not is_active else "当前查看", key=f"demo_btn_{key}", use_container_width=True, type="secondary"):
                 st.session_state["demo_selected"] = key
                 st.rerun()
 
     st.markdown("---")
 
+    # 展示当前选中的报告
     current = st.session_state.get("demo_selected", "ai_chat")
     report_info = DEMO_REPORTS[current]
     report_content = STATIC_REPORTS[current]
 
     st.markdown(f"### 📊 {report_info['title']}")
     st.caption(f"赛道：{report_info['track']} · 竞品：{report_info['companies'].replace(',', ' · ')}")
+
     show_report(report_content, report_info['title'])
 
 
 # ══ Tab 2：自定义分析 ══════════════════════════════════════════════════════════
 with tab_custom:
-    st.markdown("""
-    <div class="section-header">
-        <div class="section-label">CUSTOM ANALYSIS</div>
-        <div class="section-title">分析你指定的竞品</div>
-        <div class="section-desc">填入竞品信息，Agent 实时联网搜索，约需 2-3 分钟生成专属报告</div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### 分析你指定的竞品")
+    st.caption("填入竞品和赛道，Agent 将实时联网搜索并生成专属报告（约需 2-3 分钟）")
 
-    # 步骤引导
-    st.markdown("""
-    <div class="steps-guide">
-        <div class="step-item">
-            <div class="step-num">01</div>
-            <div class="step-text">在左侧侧边栏填写 API Key</div>
-        </div>
-        <div class="step-item">
-            <div class="step-num">02</div>
-            <div class="step-text">输入竞品名称和所在赛道</div>
-        </div>
-        <div class="step-item">
-            <div class="step-num">03</div>
-            <div class="step-text">点击开始，等待 2-3 分钟</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("**输入竞品信息**")
 
-    col_left, col_right = st.columns([1, 1])
-    with col_left:
-        custom_competitors = st.text_input(
-            "竞品名称（逗号分隔）",
-            placeholder="例：微信，钉钉，飞书",
-            key="custom_comp_input"
-        )
-    with col_right:
-        custom_market = st.text_input(
-            "所在赛道",
-            placeholder="例：企业即时通讯",
-            key="custom_market_input"
-        )
+    custom_competitors = st.text_input(
+        "竞品名称（英文逗号分隔）",
+        placeholder="例：微信，钉钉，飞书",
+        key="custom_comp_input"
+    )
+    custom_market = st.text_input(
+        "所在赛道",
+        placeholder="例：企业即时通讯",
+        key="custom_market_input"
+    )
 
     api_ok = bool(api_key_input)
     if not api_ok:
-        st.markdown("""
-        <div class="api-tip">
-            💡 需要 API Key 才能使用自定义分析 — 点击左上角箭头展开侧边栏填写
-        </div>
-        """, unsafe_allow_html=True)
+        st.warning("⚠️ 还没有配置 API Key — 点击页面左上角 > 展开侧边栏填写后即可开始分析")
 
-    if st.button("🚀 开始分析", disabled=not api_ok, use_container_width=True, type="primary"):
+    if st.button("🚀 开始分析", disabled=not api_ok, use_container_width=True):
         if not custom_competitors or not custom_market:
             st.error("请填写竞品名称和赛道")
         else:
@@ -2251,6 +1971,7 @@ with tab_custom:
                 del st.session_state[cache_key]
             st.rerun()
 
+    # 运行结果
     run_cfg = st.session_state.get("custom_run")
     if run_cfg:
         cache_key = f"custom_{run_cfg['competitors']}_{run_cfg['market']}"
