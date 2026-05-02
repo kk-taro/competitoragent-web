@@ -29,176 +29,45 @@ st.set_page_config(
 # ── 样式 ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
-    --ink: #1a1a2e;
+    --ink: #0e0e16;
     --accent: #e94560;
-    --accent2: #0f3460;
+    --accent2: #ff6b6b;
+    --blue: #0f3460;
     --muted: #8892a4;
-    --surface: #f8f7f4;
-    --border: #e2ddd5;
+    --surface: #f7f6f3;
+    --white: #ffffff;
+    --border: #e8e3db;
     --gold: #c9a84c;
     --green: #7ec8a0;
 }
 
 html, body, [class*="css"] {
-    font-family: 'Noto Serif SC', serif;
-    background: var(--surface);
-    color: var(--ink);
+    font-family: 'Noto Serif SC', serif !important;
+    background: var(--surface) !important;
+    color: var(--ink) !important;
 }
 
-/* Hero */
+/* ── HERO ── */
 .hero {
     background: var(--ink);
-    color: white;
-    padding: 2.5rem 2rem 2rem;
-    margin: -1rem -1rem 2rem;
-    border-bottom: 3px solid var(--accent);
+    padding: 4rem 2rem 3.5rem;
+    margin: -1rem -1rem 0;
     position: relative;
     overflow: hidden;
 }
-.hero::before {
-    content: '';
+.hero-grid {
     position: absolute;
-    top: -50%; right: -10%;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
-}
-.hero h1 { font-size: 2rem; font-weight: 700; margin: 0 0 0.3rem; letter-spacing: -0.5px; color: white !important; }
-.hero .subtitle { color: rgba(255,255,255,0.6) !important; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
-.hero .api-hint { font-size: 0.78rem; color: rgba(255,255,255,0.55) !important; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.8rem; }
-.hero .badge {
-    display: inline-block; background: var(--accent); color: white;
-    font-size: 0.7rem; padding: 2px 8px; border-radius: 2px;
-    font-family: 'JetBrains Mono', monospace; margin-left: 8px; vertical-align: middle;
-}
-
-/* Demo 卡片 */
-.demo-card {
-    background: white; border: 1px solid var(--border);
-    border-left: 4px solid var(--accent); border-radius: 6px;
-    padding: 1.2rem 1.4rem; margin-bottom: 0.4rem;
-    transition: all 0.2s; position: relative;
-}
-.demo-card:hover { border-left-color: var(--gold); box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-1px); }
-.demo-card.active { background: #fffbf0; border-left-color: var(--gold); }
-.demo-card .track { font-size: 0.68rem; font-family: 'JetBrains Mono', monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
-.demo-card .title { font-weight: 700; font-size: 1rem; color: var(--ink); margin-bottom: 0.3rem; }
-.demo-card .status { font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-top: 0.3rem; }
-.demo-card.active .status { color: #16a34a; font-weight: 600; }
-/* 透明覆盖按钮 */
-.card-wrap { position: relative; }
-.card-wrap .stButton { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
-.card-wrap .stButton > button { width: 100%; height: 100%; cursor: pointer; }
-}
-
-
-/* 自定义分析区 */
-.custom-box {
-    background: white; border: 1px solid var(--border);
-    border-radius: 6px; padding: 1.5rem 1.8rem;
-    margin-top: 1.5rem;
-}
-.custom-box h4 { color: var(--ink); font-size: 1rem; margin: 0 0 1rem; }
-
-/* Agent 日志 */
-.log-box {
-    background: #0d1117; color: #7ec8a0;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
-    padding: 1rem 1.2rem; border-radius: 4px;
-    border-left: 3px solid var(--green);
-    max-height: 280px; overflow-y: auto;
-    line-height: 1.8; margin-bottom: 1rem;
-    white-space: pre-wrap;
-}
-
-/* 报告正文 */
-.report-body { line-height: 2; }
-.report-body h1 { font-size: 1.6rem; color: var(--ink); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-.report-body h2 { font-size: 1.15rem; color: var(--accent2); margin-top: 2rem; border-left: 3px solid var(--gold); padding-left: 0.8rem; }
-.report-body h3 { font-size: 1rem; color: var(--ink); margin-top: 1.2rem; }
-.report-body table { border-collapse: collapse; width: 100%; font-size: 0.875rem; margin: 1rem 0; }
-.report-body th { background: var(--ink); color: white; padding: 8px 12px; text-align: left; }
-.report-body td { border: 1px solid var(--border); padding: 7px 12px; }
-.report-body tr:nth-child(even) td { background: #fafafa; }
-.report-body a { color: var(--accent2); text-decoration: underline; }
-
-/* 侧边栏 */
-section[data-testid="stSidebar"] { background: var(--ink) !important; border-right: 1px solid rgba(255,255,255,0.08); }
-section[data-testid="stSidebar"] * { color: white !important; }
-section[data-testid="stSidebar"] .stTextInput input {
-    background: rgba(255,255,255,0.92) !important;
-    border: 1px solid rgba(255,255,255,0.4) !important;
-    color: #1a1a2e !important; font-family: 'JetBrains Mono', monospace !important;
-}
-section[data-testid="stSidebar"] .stTextInput input::placeholder {
-    color: #8892a4 !important;
-}
-
-/* 主区域输入框 */
-.main .stTextInput input,
-[data-testid="stTextInput"] input {
-    background: white !important;
-    border: 1px solid var(--border) !important;
-    color: #1a1a2e !important;
-}
-.main .stTextInput input::placeholder,
-[data-testid="stTextInput"] input::placeholder { color: #aab0bb !important; }
-section[data-testid="stSidebar"] .stTextInput input,
-section[data-testid="stSidebar"] [data-testid="stTextInput"] input {
-    background: rgba(255,255,255,0.92) !important;
-    border: 1px solid rgba(255,255,255,0.4) !important;
-    color: #1a1a2e !important;
-}
-section[data-testid="stSidebar"] .stTextInput input::placeholder,
-section[data-testid="stSidebar"] [data-testid="stTextInput"] input::placeholder {
-    color: #8892a4 !important;
-}
-
-
-/* 按钮 */
-.stButton > button {
-    background: var(--accent) !important; color: white !important;
-    border: none !important; border-radius: 4px !important;
-    font-family: 'Noto Serif SC', serif !important; font-weight: 600 !important;
-    padding: 0.5rem 1.5rem !important; transition: all 0.2s !important;
-}
-.stButton > button:hover { background: #c73652 !important; transform: translateY(-1px) !important; }
-
-hr { border-color: var(--border); }
-
-/* 标签页 */
-.stTabs [data-baseweb="tab-list"] { gap: 8px; }
-.stTabs [data-baseweb="tab"] {
-    background: white; border: 1px solid var(--border);
-    border-radius: 4px; padding: 6px 16px;
-    font-family: 'Noto Serif SC', serif; font-size: 0.9rem;
-}
-.stTabs [aria-selected="true"] { background: var(--ink) !important; color: white !important; border-color: var(--ink) !important; }
-
-/* ── Hero 新样式 ── */
-.hero {
-    background: #0e0e16 !important;
-    padding: 3.5rem 2rem 3rem !important;
-    margin: -1rem -1rem 0 !important;
-    border-bottom: none !important;
-    position: relative;
-    overflow: hidden;
-}
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    inset: 0;
     background-image:
         linear-gradient(rgba(233,69,96,0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(233,69,96,0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
 }
-.hero::after {
-    content: '';
+.hero-glow {
     position: absolute;
     top: -20%; right: 5%;
     width: 500px; height: 500px;
@@ -206,20 +75,15 @@ hr { border-color: var(--border); }
     background: radial-gradient(circle, rgba(233,69,96,0.1) 0%, transparent 70%);
     pointer-events: none;
 }
-.hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-}
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: rgba(233,69,96,0.12);
     border: 1px solid rgba(233,69,96,0.3);
-    color: #ff6b6b !important;
+    color: #ff6b6b;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     padding: 5px 14px;
@@ -231,12 +95,13 @@ hr { border-color: var(--border); }
     width: 6px; height: 6px;
     border-radius: 50%;
     background: #e94560;
-    animation: pulse 1.5s ease infinite;
+    animation: blink 1.5s ease infinite;
 }
-@keyframes pulse {
+@keyframes blink {
     0%,100% { opacity:1; transform:scale(1); }
-    50% { opacity:0.5; transform:scale(1.4); }
+    50% { opacity:0.4; transform:scale(1.5); }
 }
+.hero-content { position: relative; z-index: 1; }
 .hero h1 {
     font-size: 2.8rem !important;
     font-weight: 900 !important;
@@ -245,40 +110,43 @@ hr { border-color: var(--border); }
     line-height: 1.1 !important;
     margin-bottom: 1rem !important;
 }
+.hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+}
 .hero-sub {
     color: rgba(255,255,255,0.5) !important;
     font-size: 1rem !important;
     line-height: 1.8 !important;
-    margin-bottom: 2rem !important;
-    font-family: 'Noto Serif SC', serif !important;
+    margin-bottom: 0 !important;
+    max-width: 560px;
 }
 .hero-stats {
     display: flex;
     gap: 2.5rem;
     padding-top: 2rem;
+    margin-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.08);
     flex-wrap: wrap;
 }
 .stat { display: flex; flex-direction: column; gap: 3px; }
 .stat-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: white;
 }
 .stat-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.35);
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.3);
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-/* ── Section Header ── */
-.section-header {
-    padding: 2rem 0 1.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
+/* ── SECTION ── */
+.section-wrap {
+    padding: 3rem 0 2rem;
 }
 .section-label {
     font-family: 'JetBrains Mono', monospace;
@@ -286,7 +154,7 @@ hr { border-color: var(--border); }
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 .section-title {
     font-size: 1.6rem;
@@ -294,10 +162,37 @@ hr { border-color: var(--border); }
     color: var(--ink);
     letter-spacing: -0.5px;
     margin-bottom: 0.4rem;
+    line-height: 1.2;
 }
 .section-desc {
     color: var(--muted);
     font-size: 0.875rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+}
+
+/* ── 自定义分析输入区 ── */
+.custom-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.5rem;
+}
+.api-tip {
+    background: rgba(233,69,96,0.06);
+    border: 1px solid rgba(233,69,96,0.2);
+    border-radius: 6px;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 1rem;
 }
 
 /* ── 案例卡片 ── */
@@ -306,120 +201,202 @@ hr { border-color: var(--border); }
     border: 1px solid var(--border);
     border-left: 4px solid var(--accent);
     border-radius: 8px;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 0.5rem;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
     transition: all 0.2s;
+}
+.case-card.active {
+    border-left-color: var(--gold);
+    background: #fffbf0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 .case-track {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 0.4rem;
-}
-.case-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--ink);
     margin-bottom: 0.3rem;
 }
-.case-companies {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 0.6rem;
+.case-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
 }
-.case-action {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
+.case-companies {
+    font-size: 0.78rem;
+    color: var(--muted);
 }
 
-/* ── 步骤引导 ── */
-.steps-guide {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0 1.5rem;
-    flex-wrap: wrap;
-}
-.step-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* ── 报告展示区 ── */
+.report-panel {
     background: white;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem 2.2rem;
+    min-height: 400px;
+    line-height: 1.9;
+}
+.report-panel h1 {
+    font-size: 1.4rem;
+    color: var(--ink);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.report-panel h2 {
+    font-size: 1rem;
+    color: var(--blue);
+    margin-top: 1.8rem;
+    border-left: 3px solid var(--gold);
+    padding-left: 0.7rem;
+}
+.report-panel h3 {
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-top: 1.2rem;
+}
+.report-panel table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.82rem;
+    margin: 1rem 0;
+}
+.report-panel th {
+    background: var(--ink);
+    color: white;
+    padding: 7px 10px;
+    text-align: left;
+}
+.report-panel td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+}
+.report-panel tr:nth-child(even) td { background: #fafaf8; }
+.report-panel blockquote {
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+/* ── Agent 日志 ── */
+.log-box {
+    background: #0d1117;
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 1rem 1.2rem;
     border-radius: 6px;
-    padding: 0.7rem 1rem;
-    flex: 1;
-    min-width: 160px;
+    border-left: 3px solid var(--green);
+    max-height: 260px;
+    overflow-y: auto;
+    line-height: 1.9;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+/* ── 工作原理 ── */
+.how-section {
+    background: var(--ink);
+    padding: 3rem 2rem;
+    margin: 0 -1rem -1rem;
+    border-top: 3px solid var(--accent);
+}
+.how-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.5px;
+}
+.how-desc {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+.steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+.step-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 1.2rem;
 }
 .step-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.62rem;
     color: var(--accent);
-    background: rgba(233,69,96,0.08);
-    padding: 2px 8px;
-    border-radius: 3px;
-    flex-shrink: 0;
+    letter-spacing: 2px;
+    margin-bottom: 0.6rem;
 }
-.step-text {
-    font-size: 0.82rem;
-    color: var(--ink);
-}
-
-/* ── API提示 ── */
-.api-tip {
-    background: rgba(233,69,96,0.06);
-    border: 1px solid rgba(233,69,96,0.2);
-    border-radius: 6px;
-    padding: 0.8rem 1.2rem;
+.step-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.step-name {
     font-size: 0.85rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.3rem;
+}
+.step-desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
 }
 
-/* ── Tabs样式 ── */
-.stTabs [data-baseweb="tab-list"] {
-    gap: 0;
-    border-bottom: 2px solid var(--border);
-    background: transparent;
+/* ── 侧边栏 ── */
+section[data-testid="stSidebar"] {
+    background: var(--ink) !important;
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
 }
-.stTabs [data-baseweb="tab"] {
-    background: transparent !important;
-    border: none !important;
-    border-bottom: 2px solid transparent !important;
-    margin-bottom: -2px;
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
-    font-family: 'Noto Serif SC', serif;
-    color: var(--muted) !important;
-    border-radius: 0 !important;
+section[data-testid="stSidebar"] * { color: white !important; }
+section[data-testid="stSidebar"] .stTextInput input {
+    background: rgba(255,255,255,0.07) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: white !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.82rem !important;
 }
-.stTabs [aria-selected="true"] {
-    color: var(--ink) !important;
-    border-bottom-color: var(--accent) !important;
+section[data-testid="stSidebar"] .stTextInput label {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 1px !important;
+}
+
+/* ── 按钮 ── */
+.stButton > button {
+    border-radius: 6px !important;
+    font-family: 'Noto Serif SC', serif !important;
     font-weight: 600 !important;
+    transition: all 0.2s !important;
 }
-
-/* ── 主按钮 ── */
 .stButton > button[kind="primary"] {
     background: var(--accent) !important;
     color: white !important;
     border: none !important;
-    border-radius: 6px !important;
-    font-weight: 700 !important;
-    padding: 0.6rem 1.5rem !important;
-    font-family: 'Noto Serif SC', serif !important;
+}
+.stButton > button[kind="primary"]:hover {
+    background: #c73652 !important;
+    transform: translateY(-1px) !important;
 }
 .stButton > button[kind="secondary"] {
     background: white !important;
     color: var(--ink) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 6px !important;
-    font-family: 'Noto Serif SC', serif !important;
 }
+
+/* ── 隐藏Streamlit默认元素 ── */
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+header { visibility: hidden; }
+.block-container { padding-top: 1rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -2082,193 +2059,253 @@ def show_report(content: str, title: str):
 # ══════════════════════════════════════════════════════════════════════════════
 
 # ── 侧边栏：仅放 API 配置 ────────────────────────────────────────────────────
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 侧边栏：API配置
+# ══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
     st.markdown("### ⚙️ API 配置")
-    st.caption("自定义分析需要填写，Demo报告无需Key")
+    st.caption("自定义分析需要填写")
     st.markdown("---")
 
     default_key = ""
     default_url = ""
-    default_model = ""
+    default_model = "gpt-4o"
     try:
         default_key = st.secrets.get("API_KEY", "")
         default_url = st.secrets.get("API_BASE_URL", "")
-        default_model = st.secrets.get("MODEL", "")
+        default_model = st.secrets.get("MODEL", "gpt-4o")
     except Exception:
         pass
 
-    api_key_input = st.text_input("API Key", type="password", value=default_key, placeholder="sk-...")
-    base_url_input = st.text_input("Base URL", value=default_url, placeholder="https://api.openai.com/v1")
-    model_input = st.text_input("模型名称", value=default_model, placeholder="gpt-4o")
+    api_key_input = st.text_input("API KEY", type="password", value=default_key, placeholder="sk-...")
+    base_url_input = st.text_input("BASE URL", value=default_url, placeholder="https://api.openai.com/v1")
+    model_input = st.text_input("MODEL", value=default_model, placeholder="gpt-4o")
 
     st.markdown("---")
     st.markdown("""
-    <div style='font-size:0.72rem; color:#8892a4; line-height:1.9'>
-    <b style='color:#e94560'>技术栈</b><br>
+    <div style='font-size:0.7rem; color:#8892a4; line-height:1.9'>
+    <b style='color:#e94560'>TECH STACK</b><br>
     LangGraph ReAct Agent<br>
     DuckDuckGo 实时搜索<br>
     网页内容抓取<br>
-    OpenAI 兼容接口<br><br>
-    <b style='color:#e94560'>报告结构</b><br>
-    11章 · 4000字+ · 附来源
+    OpenAI 兼容接口<br>
+    6 × Lenny PM Skills
     </div>
     """, unsafe_allow_html=True)
 
 
-# ── Hero ──────────────────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# HERO
+# ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="hero">
-    <div class="hero-inner">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
         <div class="hero-badge">
             <span class="live-dot"></span> LIVE AGENT · 实时联网搜索
         </div>
-        <h1>竞品分析 Agent</h1>
-        <p class="hero-sub">输入任意竞品名称，Agent 自动联网搜索、抓取官网、深度推理<br>生成包含 11 个章节、4000字+ 的专业竞争情报报告</p>
+        <h1>让 AI 读懂你的<br>每一个<em>竞争对手</em></h1>
+        <p class="hero-sub">
+            输入竞品名称，Agent 自动联网搜索、抓取官网、深度推理，
+            生成包含 11 个章节、4000字+ 的专业竞争情报报告。
+        </p>
         <div class="hero-stats">
-            <div class="stat"><span class="stat-num">11</span><span class="stat-label">章节结构</span></div>
-            <div class="stat"><span class="stat-num">4000+</span><span class="stat-label">字深度分析</span></div>
-            <div class="stat"><span class="stat-num">6</span><span class="stat-label">PM技能框架</span></div>
-            <div class="stat"><span class="stat-num">实时</span><span class="stat-label">联网搜索</span></div>
+            <div class="stat">
+                <span class="stat-num">11</span>
+                <span class="stat-label">章节结构</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">4000+</span>
+                <span class="stat-label">字深度分析</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">6</span>
+                <span class="stat-label">PM技能框架</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">实时</span>
+                <span class="stat-label">联网搜索</span>
+            </div>
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ── 导航标签 ──────────────────────────────────────────────────────────────────
-tab_demo, tab_custom = st.tabs(["📄 案例报告", "🚀 自定义分析"])
 
-# ══ Tab 1：Demo 报告 ══════════════════════════════════════════════════════════
-with tab_demo:
+# ══════════════════════════════════════════════════════════════════════════════
+# 自定义分析（核心功能，最显眼）
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="section-wrap">
+    <div class="section-label">CUSTOM ANALYSIS</div>
+    <div class="section-title">开始分析你的竞品</div>
+    <div class="section-desc">填入竞品信息，Agent 实时联网搜索，约需 2-3 分钟生成专属报告</div>
+</div>
+""", unsafe_allow_html=True)
+
+col_l, col_r = st.columns([1, 1])
+with col_l:
+    custom_competitors = st.text_input(
+        "竞品名称（逗号分隔）",
+        placeholder="例：微信，钉钉，飞书",
+        key="custom_comp"
+    )
+with col_r:
+    custom_market = st.text_input(
+        "所在赛道",
+        placeholder="例：企业即时通讯",
+        key="custom_market"
+    )
+
+api_ok = bool(api_key_input)
+if not api_ok:
     st.markdown("""
-    <div class="section-header">
-        <div class="section-label">CASE STUDIES</div>
-        <div class="section-title">三份真实竞品分析报告</div>
-        <div class="section-desc">基于 2026年Q1 最新公开数据，点击卡片查看完整报告</div>
+    <div class="api-tip">
+        💡 点击左上角 &gt; 展开侧边栏，填写 API Key 后即可使用
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
-    selected = st.session_state.get("demo_selected", "ai_chat")
+if st.button("🚀 开始分析", disabled=not api_ok, type="primary", use_container_width=False):
+    if not custom_competitors or not custom_market:
+        st.error("请填写竞品名称和赛道")
+    else:
+        st.session_state["custom_run"] = {
+            "competitors": custom_competitors,
+            "market": custom_market,
+            "api_key": api_key_input,
+            "base_url": base_url_input,
+            "model": model_input,
+        }
+        cache_key = f"custom_{custom_competitors}_{custom_market}"
+        if cache_key in st.session_state:
+            del st.session_state[cache_key]
+        st.rerun()
 
-    for col, (key, report) in zip([col1, col2, col3], DEMO_REPORTS.items()):
-        with col:
-            is_active = selected == key
-            active_border = "#c9a84c" if is_active else "#e94560"
-            active_bg = "#fffbf0" if is_active else "white"
-            active_tag = "✓ 当前查看" if is_active else "点击查看 →"
-            tag_color = "#c9a84c" if is_active else "#e94560"
-            st.markdown(f"""
-            <div class="case-card" style="border-left-color:{active_border}; background:{active_bg}">
-                <div class="case-track">{report['track']}</div>
-                <div class="case-title">{report['title']}</div>
-                <div class="case-companies">{report['companies'].replace(',', ' · ')}</div>
-                <div class="case-action" style="color:{tag_color}">{active_tag}</div>
-            </div>
-            """, unsafe_allow_html=True)
-            if st.button(
-                "当前报告" if is_active else "查看报告",
-                key=f"demo_btn_{key}",
-                use_container_width=True,
-                type="secondary" if not is_active else "primary"
-            ):
-                st.session_state["demo_selected"] = key
-                st.rerun()
-
+# 分析结果
+run_cfg = st.session_state.get("custom_run")
+if run_cfg:
+    cache_key = f"custom_{run_cfg['competitors']}_{run_cfg['market']}"
     st.markdown("---")
-
-    current = st.session_state.get("demo_selected", "ai_chat")
-    report_info = DEMO_REPORTS[current]
-    report_content = STATIC_REPORTS[current]
-
-    st.markdown(f"### 📊 {report_info['title']}")
-    st.caption(f"赛道：{report_info['track']} · 竞品：{report_info['companies'].replace(',', ' · ')}")
-    show_report(report_content, report_info['title'])
-
-
-# ══ Tab 2：自定义分析 ══════════════════════════════════════════════════════════
-with tab_custom:
-    st.markdown("""
-    <div class="section-header">
-        <div class="section-label">CUSTOM ANALYSIS</div>
-        <div class="section-title">分析你指定的竞品</div>
-        <div class="section-desc">填入竞品信息，Agent 实时联网搜索，约需 2-3 分钟生成专属报告</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # 步骤引导
-    st.markdown("""
-    <div class="steps-guide">
-        <div class="step-item">
-            <div class="step-num">01</div>
-            <div class="step-text">在左侧侧边栏填写 API Key</div>
-        </div>
-        <div class="step-item">
-            <div class="step-num">02</div>
-            <div class="step-text">输入竞品名称和所在赛道</div>
-        </div>
-        <div class="step-item">
-            <div class="step-num">03</div>
-            <div class="step-text">点击开始，等待 2-3 分钟</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    col_left, col_right = st.columns([1, 1])
-    with col_left:
-        custom_competitors = st.text_input(
-            "竞品名称（逗号分隔）",
-            placeholder="例：微信，钉钉，飞书",
-            key="custom_comp_input"
-        )
-    with col_right:
-        custom_market = st.text_input(
-            "所在赛道",
-            placeholder="例：企业即时通讯",
-            key="custom_market_input"
-        )
-
-    api_ok = bool(api_key_input)
-    if not api_ok:
-        st.markdown("""
-        <div class="api-tip">
-            💡 需要 API Key 才能使用自定义分析 — 点击左上角箭头展开侧边栏填写
-        </div>
-        """, unsafe_allow_html=True)
-
-    if st.button("🚀 开始分析", disabled=not api_ok, use_container_width=True, type="primary"):
-        if not custom_competitors or not custom_market:
-            st.error("请填写竞品名称和赛道")
-        else:
-            st.session_state["custom_run"] = {
-                "competitors": custom_competitors,
-                "market": custom_market,
-                "api_key": api_key_input,
-                "base_url": base_url_input,
-                "model": model_input,
-            }
-            cache_key = f"custom_{custom_competitors}_{custom_market}"
+    col_title, col_clear = st.columns([4, 1])
+    with col_title:
+        st.markdown(f"#### 📊 {run_cfg['competitors']} — {run_cfg['market']}")
+    with col_clear:
+        if st.button("✕ 清除", key="clear_result"):
+            del st.session_state["custom_run"]
             if cache_key in st.session_state:
                 del st.session_state[cache_key]
             st.rerun()
 
-    run_cfg = st.session_state.get("custom_run")
-    if run_cfg:
-        cache_key = f"custom_{run_cfg['competitors']}_{run_cfg['market']}"
-        st.markdown("---")
-        st.markdown(f"### 📊 自定义分析：{run_cfg['competitors']}")
-        st.caption(f"赛道：{run_cfg['market']}")
+    if st.session_state.get(cache_key):
+        st.success("✅ 已缓存（本次会话有效）")
+        show_report(st.session_state[cache_key], run_cfg["competitors"])
+    else:
+        result = run_agent_with_ui(
+            competitors=run_cfg["competitors"],
+            market=run_cfg["market"],
+            api_key=run_cfg["api_key"],
+            base_url=run_cfg["base_url"],
+            model=run_cfg["model"],
+        )
+        if result:
+            st.session_state[cache_key] = result
+            show_report(result, run_cfg["competitors"])
 
-        if st.session_state.get(cache_key):
-            st.success("✅ 已缓存（本次会话有效）")
-            show_report(st.session_state[cache_key], run_cfg['competitors'])
-        else:
-            result = run_agent_with_ui(
-                competitors=run_cfg["competitors"],
-                market=run_cfg["market"],
-                api_key=run_cfg["api_key"],
-                base_url=run_cfg["base_url"],
-                model=run_cfg["model"],
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 案例报告（左右分栏）
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
+st.markdown("""
+<div class="section-wrap">
+    <div class="section-label">CASE STUDIES</div>
+    <div class="section-title">三份真实竞品分析</div>
+    <div class="section-desc">基于 2026年Q1 最新公开数据 · 点击左侧卡片切换报告</div>
+</div>
+""", unsafe_allow_html=True)
+
+col_cards, col_report = st.columns([1, 2])
+
+with col_cards:
+    selected = st.session_state.get("demo_selected", "ai_chat")
+    for key, report in DEMO_REPORTS.items():
+        is_active = selected == key
+        active_class = "case-card active" if is_active else "case-card"
+        st.markdown(f"""
+        <div class="{active_class}">
+            <div class="case-track">{report["track"]}</div>
+            <div class="case-title">{report["title"]}</div>
+            <div class="case-companies">{report["companies"].replace(",", " · ")}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button(
+            "▶ 当前查看" if is_active else "查看报告",
+            key=f"case_{key}",
+            use_container_width=True,
+            type="primary" if is_active else "secondary"
+        ):
+            st.session_state["demo_selected"] = key
+            st.rerun()
+
+with col_report:
+    current = st.session_state.get("demo_selected", "ai_chat")
+    report_info = DEMO_REPORTS[current]
+    report_content = STATIC_REPORTS[current]
+    st.markdown(f'<div class="report-panel">', unsafe_allow_html=True)
+    st.markdown(report_content)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Word下载
+    try:
+        import docx as _docx
+        docx_bytes = markdown_to_docx_bytes(report_content, report_info["title"])
+        if docx_bytes:
+            st.download_button(
+                label="⬇️ 下载 Word 版本",
+                data=docx_bytes,
+                file_name=f"{report_info['title']}.docx",
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             )
-            if result:
-                st.session_state[cache_key] = result
-                show_report(result, run_cfg['competitors'])
+    except ImportError:
+        pass
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 工作原理（最底部深色区）
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
+st.markdown("""
+<div class="how-section">
+    <div class="section-label" style="color:#e94560">HOW IT WORKS</div>
+    <div class="how-title">Agent 如何完成分析</div>
+    <div class="how-desc">基于 LangGraph ReAct 架构，Agent 自主规划每一步</div>
+    <div class="steps-row">
+        <div class="step-card">
+            <div class="step-num">STEP 01</div>
+            <div class="step-icon">🔍</div>
+            <div class="step-name">实时联网搜索</div>
+            <div class="step-desc">通过 DuckDuckGo 搜索竞品官网、行业报告、媒体评测</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">STEP 02</div>
+            <div class="step-icon">🌐</div>
+            <div class="step-name">网页内容抓取</div>
+            <div class="step-desc">自动访问官网定价页、功能页，提取结构化文本</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">STEP 03</div>
+            <div class="step-icon">🤖</div>
+            <div class="step-name">ReAct 循环推理</div>
+            <div class="step-desc">Agent 自主判断信息是否充分，决定继续搜集还是输出</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">STEP 04</div>
+            <div class="step-icon">📊</div>
+            <div class="step-name">生成专业报告</div>
+            <div class="step-desc">基于 6个 Lenny PM 技能框架，输出11章完整报告</div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
