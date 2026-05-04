@@ -232,11 +232,11 @@ html, body, [class*="css"] {
 
 /* ── 报告展示区 ── */
 .report-panel {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 2rem 2.2rem;
-    min-height: 400px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    min-height: auto;
     line-height: 1.9;
 }
 .report-panel h1 {
@@ -376,6 +376,7 @@ section[data-testid="stSidebar"] .stTextInput label {
     font-family: 'Noto Serif SC', serif !important;
     font-weight: 600 !important;
     transition: all 0.2s !important;
+    min-height: 42px !important;
 }
 .stButton > button[kind="primary"] {
     background: var(--accent) !important;
@@ -390,6 +391,23 @@ section[data-testid="stSidebar"] .stTextInput label {
     background: white !important;
     color: var(--ink) !important;
     border: 1px solid var(--border) !important;
+}
+
+/* ── 输入框：彻底移除双层效果 ── */
+.stTextInput { background: transparent !important; border: none !important; }
+.stTextInput > div { border: none !important; background: transparent !important; padding: 0 !important; }
+.stTextInput > div > div { border: none !important; background: transparent !important; padding: 0 !important; }
+.stTextInput input {
+    background: var(--white) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    color: var(--ink) !important;
+}
+.stTextInput input::placeholder {
+    color: #9aa0a6 !important;
+    opacity: 1 !important;
 }
 
 /* ── 隐藏Streamlit默认元素 ── */
@@ -899,7 +917,9 @@ DeepSeek C端完全免费的策略使其获得巨大用户基础（2500万DAU）
 **分析师**：AI竞争情报分析系统
 """
 
-DEMO_REPORT_PM_TOOLS = """> **报告说明**：本报告聚焦企业协作与项目管理SaaS市场，基于2026年Q1最新数据。来源包括各公司财报、官方披露及行业研究。
+DEMO_REPORT_PM_TOOLS = """# 竞品调研报告：企业协作与项目管理SaaS
+
+> **报告说明**：本报告聚焦企业协作与项目管理SaaS市场，基于2026年Q1最新数据。来源包括各公司财报、官方披露及行业研究。
 
 ## 一、报告概述（Executive Summary）
 
@@ -2078,7 +2098,8 @@ with st.sidebar:
     except Exception:
         pass
 
-    api_key_input = st.text_input("API KEY", type="password", value=default_key, placeholder="sk-...")
+    # API KEY 作为普通文本框（不用 type="password"，避免眼睛图标）
+    api_key_input = st.text_input("API KEY", value=default_key, placeholder="sk-...")
     base_url_input = st.text_input("BASE URL", value=default_url, placeholder="https://api.openai.com/v1")
     model_input = st.text_input("MODEL", value=default_model, placeholder="gpt-4o")
 
@@ -2135,141 +2156,222 @@ st.markdown("""
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 自定义分析（核心功能，最显眼）
+# 顶部导航（两个并排的大按钮：查看示例报告 / 自定义分析）
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section-wrap">
-    <div class="section-label">CUSTOM ANALYSIS</div>
-    <div class="section-title">开始分析你的竞品</div>
-    <div class="section-desc">填入竞品信息，Agent 实时联网搜索，约需 2-3 分钟生成专属报告</div>
-</div>
+
+# 初始化选项卡状态
+if "ui_tab" not in st.session_state:
+    st.session_state["ui_tab"] = "demo"
+
+# 注入激活态样式
+current_tab = st.session_state.get("ui_tab", "demo")
+st.markdown(f"""
+<style>
+/* 顶部导航激活态 */
+div[data-testid="stHorizontalBlock"] > div:nth-child(1) button {{
+    background: {'#ffeaa7 !important' if current_tab == 'demo' else 'var(--white) !important'} !important;
+    border: {'2px solid #fdcb6e !important' if current_tab == 'demo' else '1px solid var(--border) !important'} !important;
+    color: var(--ink) !important;
+}}
+div[data-testid="stHorizontalBlock"] > div:nth-child(2) button {{
+    background: {'#ffeaa7 !important' if current_tab == 'custom' else 'var(--white) !important'} !important;
+    border: {'2px solid #fdcb6e !important' if current_tab == 'custom' else '1px solid var(--border) !important'} !important;
+    color: var(--ink) !important;
+}}
+</style>
 """, unsafe_allow_html=True)
 
-col_l, col_r = st.columns([1, 1])
-with col_l:
-    custom_competitors = st.text_input(
-        "竞品名称（逗号分隔）",
-        placeholder="例：微信，钉钉，飞书",
-        key="custom_comp"
-    )
-with col_r:
-    custom_market = st.text_input(
-        "所在赛道",
-        placeholder="例：企业即时通讯",
-        key="custom_market"
-    )
-
-api_ok = bool(api_key_input)
-if not api_ok:
-    st.markdown("""
-    <div class="api-tip">
-        💡 点击左上角 &gt; 展开侧边栏，填写 API Key 后即可使用
-    </div>
-    """, unsafe_allow_html=True)
-
-if st.button("🚀 开始分析", disabled=not api_ok, type="primary", use_container_width=False):
-    if not custom_competitors or not custom_market:
-        st.error("请填写竞品名称和赛道")
-    else:
-        st.session_state["custom_run"] = {
-            "competitors": custom_competitors,
-            "market": custom_market,
-            "api_key": api_key_input,
-            "base_url": base_url_input,
-            "model": model_input,
-        }
-        cache_key = f"custom_{custom_competitors}_{custom_market}"
-        if cache_key in st.session_state:
-            del st.session_state[cache_key]
+# 两个并排的导航按钮
+nav_col1, nav_col2 = st.columns([1, 1])
+with nav_col1:
+    if st.button("查看示例报告", key="nav_demo", use_container_width=True, type="primary" if current_tab == "demo" else "secondary"):
+        st.session_state["ui_tab"] = "demo"
         st.rerun()
 
-# 分析结果
-run_cfg = st.session_state.get("custom_run")
-if run_cfg:
-    cache_key = f"custom_{run_cfg['competitors']}_{run_cfg['market']}"
-    st.markdown("---")
-    col_title, col_clear = st.columns([4, 1])
-    with col_title:
-        st.markdown(f"#### 📊 {run_cfg['competitors']} — {run_cfg['market']}")
-    with col_clear:
-        if st.button("✕ 清除", key="clear_result"):
-            del st.session_state["custom_run"]
-            if cache_key in st.session_state:
-                del st.session_state[cache_key]
-            st.rerun()
-
-    if st.session_state.get(cache_key):
-        st.success("✅ 已缓存（本次会话有效）")
-        show_report(st.session_state[cache_key], run_cfg["competitors"])
-    else:
-        result = run_agent_with_ui(
-            competitors=run_cfg["competitors"],
-            market=run_cfg["market"],
-            api_key=run_cfg["api_key"],
-            base_url=run_cfg["base_url"],
-            model=run_cfg["model"],
-        )
-        if result:
-            st.session_state[cache_key] = result
-            show_report(result, run_cfg["competitors"])
-
+with nav_col2:
+    if st.button("自定义分析", key="nav_custom", use_container_width=True, type="primary" if current_tab == "custom" else "secondary"):
+        st.session_state["ui_tab"] = "custom"
+        st.rerun()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 案例报告（左右分栏）
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
-st.markdown("""
-<div class="section-wrap">
-    <div class="section-label">CASE STUDIES</div>
-    <div class="section-title">三份真实竞品分析</div>
-    <div class="section-desc">基于 2026年Q1 最新公开数据 · 点击左侧卡片切换报告</div>
-</div>
-""", unsafe_allow_html=True)
+if st.session_state.get("ui_tab", "demo") == "demo":
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="section-wrap">
+        <div class="section-label">CASE STUDIES</div>
+        <div class="section-title">三份真实竞品分析</div>
+        <div class="section-desc">基于 2026年Q1 最新公开数据 · 点击左侧卡片切换报告</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-col_cards, col_report = st.columns([1, 2])
+    col_cards, col_report = st.columns([1, 2])
 
-with col_cards:
-    selected = st.session_state.get("demo_selected", "ai_chat")
-    for key, report in DEMO_REPORTS.items():
-        is_active = selected == key
-        active_class = "case-card active" if is_active else "case-card"
-        st.markdown(f"""
-        <div class="{active_class}">
-            <div class="case-track">{report["track"]}</div>
-            <div class="case-title">{report["title"]}</div>
-            <div class="case-companies">{report["companies"].replace(",", " · ")}</div>
-        </div>
-        """, unsafe_allow_html=True)
-        if st.button(
-            "▶ 当前查看" if is_active else "查看报告",
-            key=f"case_{key}",
-            use_container_width=True,
-            type="primary" if is_active else "secondary"
-        ):
-            st.session_state["demo_selected"] = key
+    with col_cards:
+        selected = st.session_state.get("demo_selected", "ai_chat")
+        for key, report in DEMO_REPORTS.items():
+            is_active = selected == key
+            active_class = "case-card active" if is_active else "case-card"
+            st.markdown(f"""
+            <div class="{active_class}">
+                <div class="case-track">{report["track"]}</div>
+                <div class="case-title">{report["title"]}</div>
+                <div class="case-companies">{report["companies"].replace(",", " · ")}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            if st.button(
+                "▶ 当前查看" if is_active else "查看报告",
+                key=f"case_{key}",
+                use_container_width=True,
+                type="primary" if is_active else "secondary"
+            ):
+                st.session_state["demo_selected"] = key
+                st.rerun()
+
+    with col_report:
+        current = st.session_state.get("demo_selected", "ai_chat")
+        report_info = DEMO_REPORTS[current]
+        report_content = STATIC_REPORTS[current]
+        
+        # 标题与下载按钮在同一行
+        title_col, dl_col = st.columns([4, 1])
+        with title_col:
+            st.markdown(f"#### {report_info['title']}")
+        with dl_col:
+            try:
+                import docx as _docx
+                docx_bytes = markdown_to_docx_bytes(report_content, report_info["title"])
+                if docx_bytes:
+                    st.download_button(
+                        label="⬇️ 下载 Word",
+                        data=docx_bytes,
+                        file_name=f"{report_info['title']}.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        key=f"dl_{current}"
+                    )
+            except ImportError:
+                pass
+        
+        st.markdown(f'<div class="report-panel">', unsafe_allow_html=True)
+        st.markdown(report_content)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 自定义分析页面（根据 ui_tab 条件显示）
+# ══════════════════════════════════════════════════════════════════════════════
+elif st.session_state.get("ui_tab", "demo") == "custom":
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="section-wrap">
+        <div class="section-label">CUSTOM ANALYSIS</div>
+        <div class="section-title">开始分析你的竞品</div>
+        <div class="section-desc">填入竞品信息，Agent 实时联网搜索，约需 2-3 分钟生成专属报告</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 页面内的 API 配置（三个输入框）
+    st.markdown("**API 配置**")
+    api_col1, api_col2, api_col3 = st.columns(3)
+    
+    with api_col1:
+        page_api_key = st.text_input(
+            "API KEY",
+            value=st.session_state.get("page_api_key", ""),
+            placeholder="sk-...",
+            key="page_api_key_input"
+        )
+        st.session_state["page_api_key"] = page_api_key
+    
+    with api_col2:
+        page_base_url = st.text_input(
+            "BASE URL",
+            value=st.session_state.get("page_base_url", ""),
+            placeholder="https://api.openai.com/v1",
+            key="page_base_url_input"
+        )
+        st.session_state["page_base_url"] = page_base_url
+    
+    with api_col3:
+        page_model = st.text_input(
+            "MODEL",
+            value=st.session_state.get("page_model", ""),
+            placeholder="gpt-4o",
+            key="page_model_input"
+        )
+        st.session_state["page_model"] = page_model
+
+    st.markdown("---")
+
+    # 竞品与赛道输入
+    st.markdown("**分析对象**")
+    col_comp, col_market = st.columns(2)
+    
+    with col_comp:
+        custom_competitors = st.text_input(
+            "竞品名称（逗号分隔）",
+            placeholder="例：微信，钉钉，飞书",
+            key="custom_competitors"
+        )
+    
+    with col_market:
+        custom_market = st.text_input(
+            "所在赛道",
+            placeholder="例：企业即时通讯",
+            key="custom_market"
+        )
+
+    # 验证并运行
+    api_ok = bool(page_api_key)
+    if not api_ok:
+        st.warning("💡 请先填写 API KEY 后即可使用")
+
+    if st.button("🚀 开始分析", disabled=not api_ok, type="primary", use_container_width=True):
+        if not custom_competitors or not custom_market:
+            st.error("请填写竞品名称和赛道")
+        else:
+            st.session_state["custom_run"] = {
+                "competitors": custom_competitors,
+                "market": custom_market,
+                "api_key": page_api_key,
+                "base_url": page_base_url,
+                "model": page_model,
+            }
+            cache_key = f"custom_{custom_competitors}_{custom_market}"
+            if cache_key in st.session_state:
+                del st.session_state[cache_key]
             st.rerun()
 
-with col_report:
-    current = st.session_state.get("demo_selected", "ai_chat")
-    report_info = DEMO_REPORTS[current]
-    report_content = STATIC_REPORTS[current]
-    st.markdown(f'<div class="report-panel">', unsafe_allow_html=True)
-    st.markdown(report_content)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # 分析结果显示
+    run_cfg = st.session_state.get("custom_run")
+    if run_cfg:
+        cache_key = f"custom_{run_cfg['competitors']}_{run_cfg['market']}"
+        st.markdown("---")
+        col_title, col_clear = st.columns([4, 1])
+        with col_title:
+            st.markdown(f"#### 📊 {run_cfg['competitors']} — {run_cfg['market']}")
+        with col_clear:
+            if st.button("✕ 清除", key="clear_result"):
+                del st.session_state["custom_run"]
+                if cache_key in st.session_state:
+                    del st.session_state[cache_key]
+                st.rerun()
 
-    # Word下载
-    try:
-        import docx as _docx
-        docx_bytes = markdown_to_docx_bytes(report_content, report_info["title"])
-        if docx_bytes:
-            st.download_button(
-                label="⬇️ 下载 Word 版本",
-                data=docx_bytes,
-                file_name=f"{report_info['title']}.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        if st.session_state.get(cache_key):
+            st.success("✅ 已缓存（本次会话有效）")
+            show_report(st.session_state[cache_key], run_cfg["competitors"])
+        else:
+            result = run_agent_with_ui(
+                competitors=run_cfg["competitors"],
+                market=run_cfg["market"],
+                api_key=run_cfg["api_key"],
+                base_url=run_cfg["base_url"],
+                model=run_cfg["model"],
             )
-    except ImportError:
-        pass
+            if result:
+                st.session_state[cache_key] = result
+                show_report(result, run_cfg["competitors"])
 
 
 # ══════════════════════════════════════════════════════════════════════════════
